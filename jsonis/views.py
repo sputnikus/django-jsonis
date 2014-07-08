@@ -19,7 +19,7 @@ class JSONResponse(CharsetHttpResponse):
     """Simple response class that will automatically serialize encode data to JSON"""
 
     def __init__(self, content_data, json_encoder=MyJSONEncoder, *args, **kwargs):
-        encoder = json_encoder(ensure_ascii=False, encoding=self.charset)
+        encoder = json_encoder(ensure_ascii=False)
         self.content_data = content_data
         kwargs.setdefault('content_type', 'application/json')
 
@@ -32,7 +32,7 @@ class JSONResponseMixin(object):
 
 class JSONPResponse(CharsetHttpResponse):
     def __init__(self, content_data, callback, json_encoder=MyJSONEncoder, *args, **kwargs):
-        encoder = json_encoder(ensure_ascii=False, encoding=self.charset)
+        encoder = json_encoder(ensure_ascii=False)
         self.content_data = content_data
         kwargs.setdefault('content_type', 'application/javascript')
 
@@ -69,7 +69,7 @@ class JSONApiResponseMixin(object):
     def payload_data(self):
         """Decode received request data"""
         if self.request.META.get('CONTENT_TYPE', '').find('application/json') == 0:
-            decoder = MyJSONDecoder(encoding='utf-8')
+            decoder = MyJSONDecoder()
             return decoder.decode(self.request.body)
         else:
             return self.request.POST

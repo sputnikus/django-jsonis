@@ -1,1 +1,1 @@
-from views import JWTAuthorizationMixin
+from .views import JWTAuthorizationMixin
