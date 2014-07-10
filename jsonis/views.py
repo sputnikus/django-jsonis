@@ -107,4 +107,4 @@ class JSONApiFormView(JSONApiResponseMixin, BaseFormView):
         raise NotImplementedError
 
     def form_invalid(self, form):
-        return self.render_api_error_response(dict(form.errors.iteritems()))
+        return self.render_api_error_response(dict(form.errors.items()))
