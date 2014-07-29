@@ -1,3 +1,5 @@
+import calendar
+import datetime
 import decimal
 import sys
 from json import JSONEncoder, JSONDecoder
@@ -9,6 +11,8 @@ class MyJSONEncoder(JSONEncoder):
     def default(self, o):
         if isinstance(o, decimal.Decimal):
             return float(o)
+        elif isinstance(o, datetime.datetime):
+            return calendar.timegm(o.timetuple())
         return super(MyJSONEncoder, self).default(o)
 
 
