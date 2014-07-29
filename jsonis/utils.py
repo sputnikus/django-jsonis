@@ -1,5 +1,8 @@
 import decimal
+import sys
 from json import JSONEncoder, JSONDecoder
+
+PY3 = True if sys.version_info[0] == 3 else False
 
 
 class MyJSONEncoder(JSONEncoder):
@@ -8,8 +11,13 @@ class MyJSONEncoder(JSONEncoder):
             return float(o)
         return super(MyJSONEncoder, self).default(o)
 
+
 class MyJSONDecoder(JSONDecoder):
-    pass
+    def decode(self, s):
+        if PY3:
+            s = s.decode()
+        return super(MyJSONDecoder, self).decode(s)
+
 
 # Lazy evaluation utils
 def lazyprop(fn, prefix='_lazy_'):
