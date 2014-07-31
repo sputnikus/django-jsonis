@@ -14,7 +14,7 @@ class MyJSONEncoder(JSONEncoder):
         elif isinstance(o, datetime.datetime):
             return (calendar.timegm(o.timetuple()) * 1000)  # js timestamp
         elif hasattr(o, 'get_json_data'):
-            return super(MyJSONEncoder, self).default(dict(o.get_json_data()))
+            return o.get_json_data()
         return super(MyJSONEncoder, self).default(o)
 
 
