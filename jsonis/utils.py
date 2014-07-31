@@ -12,7 +12,9 @@ class MyJSONEncoder(JSONEncoder):
         if isinstance(o, decimal.Decimal):
             return float(o)
         elif isinstance(o, datetime.datetime):
-            return (calendar.timegm(o.timetuple()) * 1000) # js timestamp in ms
+            return (calendar.timegm(o.timetuple()) * 1000)  # js timestamp
+        elif hasattr(o, 'get_json_data'):
+            return super(MyJSONEncoder, self).default(o.get_json_data())
         return super(MyJSONEncoder, self).default(o)
 
 
