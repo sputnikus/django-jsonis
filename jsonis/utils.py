@@ -20,8 +20,8 @@ class MyJSONEncoder(JSONEncoder):
 
 class MyJSONDecoder(JSONDecoder):
     def decode(self, s):
-        if PY3:
-            s = s.decode()
+        if PY3 and isinstance(s, bytes):
+            s = str(s, 'utf-8')
         return super(MyJSONDecoder, self).decode(s)
 
 
